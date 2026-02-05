@@ -111,7 +111,7 @@ function calcularPruebas() {
     let casillas = "";
 
     for (let i = 2; i <= 11; i++) {
-    casillas += `<li>Casilla ${i}: ${ajustarDivision(incremento * (i - 1), division)}</li>`;
+    casillas += `<li>${i}: ${ajustarDivision(incremento * (i - 1), division)}</li>`;
     
     }
 
@@ -133,7 +133,7 @@ function calcularPruebas() {
 
         <div class="box">
             <h3>Linealidad</h3>
-            <ul> <li>Casilla 1: ${ajustarDivision(minWeight, division)} </li>
+            <ul> <li>1: ${ajustarDivision(minWeight, division)} </li>
             ${casillas}</ul>
         </div>
     `;
