@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pruebas de Balanzas y Básculas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 16px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .box {
+            background: #eef2f5;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Pruebas para Balanzas y Básculas</h1>
+
+    <label>Capacidad máxima</label>
+    <input type="number" id="maxCapacity" step="any">
+
+    <label>División de escala</label>
+    <input type="number" id="division" step="any">
+
+    <label>Peso mínimo</label>
+    <input type="number" id="minWeight" step="any">
+
+    <button onclick="calcularPruebas()">Generar pruebas</button>
+
+    <div class="result" id="resultados"></div>
+</div>
+
+<script>
+function ajustarDivision(valor, division) {
+    return Math.round(valor / division) * division;
+}
+
+function calcularPruebas() {
+    const maxCapacity = parseFloat(document.getElementById("maxCapacity").value);
+    const division = parseFloat(document.getElementById("division").value);
+    const minWeight = parseFloat(document.getElementById("minWeight").value);
+
+    if (isNaN(maxCapacity) || isNaN(division) || isNaN(minWeight)) {
+        alert("Por favor llena todos los campos correctamente.");
+        return;
+    }
+
+    // PRUEBA 1
+    const tercio = ajustarDivision(maxCapacity / 3, division);
+
+    // PRUEBA 2
+    const completo = ajustarDivision(maxCapacity, division);
+    const mitad = ajustarDivision(maxCapacity / 2, division);
+    const cuarta = ajustarDivision(maxCapacity / 4, division);
+
+    // PRUEBA 3
+    const incremento = ajustarDivision(maxCapacity / 10, division);
+    let casillas = "";
+
+    for (let i = 1; i <= 10; i++) {
+        casillas += `<li>Casilla ${i}: ${ajustarDivision(incremento * i, division)}</li>`;
+    }
+
+    document.getElementById("resultados").innerHTML = `
+        <div class="box">
+            <h3>Prueba 1 – Un tercio</h3>
+            <p>${tercio}</p>
+        </div>
+
+        <div class="box">
+            <h3>Prueba 2 – Secuencia de cargas</h3>
+            <ul>
+                <li>Peso completo: ${completo}</li>
+                <li>Mitad: ${mitad}</li>
+                <li>Mitad de la mitad: ${cuarta}</li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <h3>Prueba 3 – Distribución en 10 casillas</h3>
+            <ul>${casillas}</ul>
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>
