@@ -106,11 +106,13 @@ function calcularPruebas() {
     const cuarta = ajustarDivision(maxCapacity / 4, division);
 
     // PRUEBA 3
+    // PRUEBA 3: LINEALIDAD (CASILLAS 2 A 11)
     const incremento = ajustarDivision(maxCapacity / 10, division);
     let casillas = "";
 
-    for (let i = 1; i <= 10; i++) {
-        casillas += `<li>Casilla ${i}: ${ajustarDivision(incremento * i, division)}</li>`;
+    for (let i = 2; i <= 11; i++) {
+    casillas += `<li>Casilla ${i}: ${ajustarDivision(incremento * (i - 1), division)}</li>`;
+    }
     }
 
     document.getElementById("resultados").innerHTML = `
